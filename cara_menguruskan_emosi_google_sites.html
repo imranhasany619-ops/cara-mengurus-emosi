@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cara Menguruskan Emosi</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#dff7ff,#fff5cf);color:#244}
+.wrapper{max-width:1050px;margin:auto;padding:28px 18px 45px;text-align:center}
+h1{color:#1976a8;margin:0 0 8px;font-size:clamp(28px,5vw,46px)}
+.subtitle{font-size:17px;margin-bottom:28px}
+.clouds{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{border:0;border-radius:28px;padding:20px 15px;cursor:pointer;box-shadow:0 8px 18px #0002;transition:.25s;background:#fff}
+.card:hover{transform:translateY(-7px) scale(1.02)}
+.cloud{width:150px;height:92px;border-radius:50px;margin:8px auto 14px;position:relative;display:flex;align-items:center;justify-content:center;font-size:48px;animation:float 2.6s ease-in-out infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;background:inherit;border-radius:50%;z-index:0}.cloud:before{width:70px;height:70px;left:18px;top:-32px}.cloud:after{width:82px;height:82px;right:15px;top:-38px}.face{position:relative;z-index:1}
+.marah .cloud{background:#ff765f;animation-name:shake}.sedih .cloud{background:#6fc6ff}.takut .cloud{background:#b690ff}
+@keyframes float{50%{transform:translateY(-10px)}}@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+h2{margin:8px 0}.info{display:none;margin:28px auto 0;max-width:760px;background:white;border-radius:24px;padding:25px;box-shadow:0 8px 20px #0002;text-align:left;animation:pop .35s}
+@keyframes pop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.info h2{text-align:center}.tips{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.tip{background:#f2fbff;padding:14px;border-radius:16px}
+.note{margin-top:28px;background:#fff;border-radius:24px;padding:24px;box-shadow:0 8px 20px #0001;text-align:left}.steps{display:flex;gap:12px;flex-wrap:wrap}.step{flex:1;min-width:180px;background:#fff6d7;border-radius:18px;padding:15px}
+.breath{text-align:center;margin-top:22px}.breath button{border:0;background:#34b7a7;color:white;border-radius:30px;padding:13px 22px;font-size:16px;cursor:pointer}.circle{margin:15px auto;width:70px;height:70px;border-radius:50%;background:#78d7ff;transition:3s}
+.circle.breathe{transform:scale(1.8);background:#8ee8a5}
+@media(max-width:700px){.clouds{grid-template-columns:1fr}.tips{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<h1>☁️ Cara Menguruskan Emosi 🌈</h1>
+<p class="subtitle">Klik pada awan untuk belajar cara menguruskan emosi kita.</p>
+
+<div class="clouds">
+<button class="card marah" onclick="showInfo('marah')"><div class="cloud"><span class="face">😠</span></div><h2>Marah</h2><p>Apabila sesuatu membuat kita geram atau tidak puas hati.</p></button>
+<button class="card sedih" onclick="showInfo('sedih')"><div class="cloud"><span class="face">😢</span></div><h2>Sedih</h2><p>Apabila kita mengalami kehilangan atau perkara yang mengecewakan.</p></button>
+<button class="card takut" onclick="showInfo('takut')"><div class="cloud"><span class="face">😨</span></div><h2>Takut</h2><p>Apabila kita berasa tidak selamat atau bimbang.</p></button>
+</div>
+
+<div id="info" class="info"></div>
+
+<div class="note">
+<h2>📚 Nota Pembelajaran Ringkas</h2>
+<div class="steps">
+<div class="step"><b>1. Kenal pasti 👀</b><br>Namakan emosi yang sedang dirasai.</div>
+<div class="step"><b>2. Berhenti seketika ✋</b><br>Jangan terus bertindak ketika emosi terlalu kuat.</div>
+<div class="step"><b>3. Tenangkan diri 🌬️</b><br>Tarik nafas perlahan dan beri masa kepada diri.</div>
+<div class="step"><b>4. Pilih tindakan baik 💡</b><br>Fikir cara yang selamat dan sesuai untuk bertindak.</div>
+</div>
+<div class="breath">
+<h3>🌬️ Cuba Latihan Pernafasan</h3>
+<div id="circle" class="circle"></div>
+<p id="breathText">Klik butang dan ikut rentak.</p>
+<button onclick="breathe()">Tarik Nafas Bersama-sama</button>
+</div>
+</div>
+</div>
+
+<script>
+const data={
+marah:{title:"😠 Saya Sedang Marah",tips:["🌬️ Tarik nafas perlahan 5 kali.","🚶 Beredar seketika dari situasi yang membuat marah.","🗣️ Cakap tentang perasaan dengan tenang.","💧 Minum air dan beri diri masa untuk bertenang."]},
+sedih:{title:"😢 Saya Sedang Sedih",tips:["💬 Berkongsi dengan orang yang dipercayai.","🎵 Lakukan aktiviti yang menenangkan.","📝 Tulis apa yang sedang dirasai.","🤍 Ingat bahawa semua emosi boleh berubah dan kita tidak keseorangan."]},
+takut:{title:"😨 Saya Sedang Takut",tips:["🌬️ Tarik nafas dan fokus pada keadaan sekeliling.","🧑‍🤝‍🧑 Cari orang dewasa atau rakan yang dipercayai.","🔍 Bezakan antara bahaya sebenar dan kebimbangan.","💪 Ingatkan diri: 'Saya boleh cuba langkah demi langkah.'"]}
+};
+function showInfo(type){
+ const d=data[type], box=document.getElementById('info');
+ box.innerHTML=`<h2>${d.title}</h2><div class="tips">${d.tips.map((x,i)=>`<div class="tip"><b>Langkah ${i+1}</b><br>${x}</div>`).join('')}</div>`;
+ box.style.display='block'; box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function breathe(){
+ const c=document.getElementById('circle'),t=document.getElementById('breathText');
+ t.textContent="Tarik nafas perlahan...";c.classList.add('breathe');
+ setTimeout(()=>{t.textContent="Tahan sekejap...";},3000);
+ setTimeout(()=>{t.textContent="Hembus perlahan-lahan...";c.classList.remove('breathe');},5000);
+ setTimeout(()=>{t.textContent="Bagus! Ulang semula jika perlu 😊";},8000);
+}
+</script>
+</body>
+</html>
